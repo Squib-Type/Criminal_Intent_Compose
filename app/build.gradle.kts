@@ -47,6 +47,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    implementation (libs.androidx.recyclerview)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
+
     implementation(libs.androidx.junit.ktx)
     val fragmentVersion = "1.4.1"
     debugImplementation("androidx.fragment:fragment-testing:$fragmentVersion")
