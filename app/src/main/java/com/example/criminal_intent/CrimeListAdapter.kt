@@ -1,11 +1,13 @@
 package com.example.criminal_intent
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.criminal_intent.databinding.ListItemCrimeBinding
 import com.example.criminal_intent.databinding.ListItemCrimePoliceBinding
+import android.text.format.DateFormat
 
 private const val NORMAL_VIEW_TYPE = 0
 private const val SERIOUS_VIEW_TYPE = 1
@@ -15,7 +17,7 @@ class CrimeHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(crime: Crime) {
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = crime.date.toString()
+        binding.crimeDate.text = DateFormat.format("MMMM d, yyyy", crime.date)
 
         binding.root.setOnClickListener {
             Toast.makeText(
@@ -23,6 +25,12 @@ class CrimeHolder(
                 "${crime.title} clicked!",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+        binding.crimeSolved.visibility = if(crime.isSolved) {
+            View.VISIBLE
+        }else {
+            View.GONE
+
         }
     }
 }
@@ -32,7 +40,7 @@ class SeriousCrimeHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(crime: Crime) {
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = crime.date.toString()
+        binding.crimeDate.text = DateFormat.format("MMMM d, yyyy", crime.date)
 
         binding.root.setOnClickListener {
             Toast.makeText(
@@ -45,9 +53,15 @@ class SeriousCrimeHolder(
         binding.contactPoliceButton.setOnClickListener {
             Toast.makeText(
                 binding.root.context,
-                "Contacting Police!",
+                "Contacting Police for ${crime.title}!",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+        binding.crimeSolved.visibility = if(crime.isSolved) {
+            View.VISIBLE
+        }else {
+            View.GONE
+
         }
     }
 }
