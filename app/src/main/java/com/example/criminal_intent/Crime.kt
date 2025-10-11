@@ -1,13 +1,13 @@
 package com.example.criminal_intent
 
-import java.util.Date
-import java.util.UUID
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.*
 
-data class Crime (
-    val id: UUID,
-    val title:String,
+@Entity
+data class Crime(
+    @PrimaryKey val id: UUID,
+    val title: String,
     val date: Date,
-    val isSolved:Boolean,
-    val requiresPolice:Boolean
-
+    val isSolved: Boolean
 )

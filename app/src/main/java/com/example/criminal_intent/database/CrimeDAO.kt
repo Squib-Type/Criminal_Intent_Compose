@@ -1,0 +1,18 @@
+package com.example.criminal_intent.database
+
+
+import androidx.room.Dao
+import androidx.room.Query
+import com.example.criminal_intent.Crime
+import kotlinx.coroutines.flow.Flow
+import java.util.*
+
+@Dao
+interface CrimeDao {
+    @Query("SELECT * FROM crime")
+    //suspend fun getCrimes(): List<Crime>
+    fun getCrimes(): Flow<List<Crime>>
+
+    @Query("SELECT * FROM crime WHERE id=(:id)")
+    suspend fun getCrime(id: UUID): Crime
+}
