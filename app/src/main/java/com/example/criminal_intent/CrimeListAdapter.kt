@@ -8,24 +8,34 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.criminal_intent.databinding.ListItemCrimeBinding
 import com.example.criminal_intent.databinding.ListItemCrimePoliceBinding
 import android.text.format.DateFormat
+import java.util.UUID
 
 private const val NORMAL_VIEW_TYPE = 0
 private const val SERIOUS_VIEW_TYPE = 1
 
-class CrimeHolder(
-    private val binding: ListItemCrimeBinding
-) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(crime: Crime) {
+
+class CrimeHolder (
+    val binding: ListItemCrimeBinding
+
+): RecyclerView.ViewHolder(binding.root){
+
+    fun bind(crime:Crime,onCrimeClicked:(crimeId: UUID)-> Unit){
+
         binding.crimeTitle.text = crime.title
         binding.crimeDate.text = crime.date.toString()
 
-        binding.root.setOnClickListener {
-            Toast.makeText(
-                binding.root.context,
-                "${crime.title} clicked!",
-                Toast.LENGTH_SHORT
-            ).show()
+
+        binding.root.setOnClickListener{
+
+            /* Toast.makeText(
+
+                 binding.root.context,
+                 "${crime.title} clicked",
+                 Toast.LENGTH_SHORT
+             ).show()*/
+            onCrimeClicked(crime.id)
         }
+
         binding.crimeSolved.visibility = if (crime.isSolved) {
             View.VISIBLE
         } else {
@@ -34,21 +44,29 @@ class CrimeHolder(
     }
 }
 
+
+
 class CrimeListAdapter(
-    private val crimes: List<Crime>
-) : RecyclerView.Adapter<CrimeHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): CrimeHolder {
+    private val crimes: List<Crime>,
+    private val onCrimeClicked:(crimeId:UUID)-> Unit): RecyclerView.Adapter<CrimeHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemCrimeBinding.inflate(inflater, parent, false)
         return CrimeHolder(binding)
+
+
     }
 
     override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
+
         val crime = crimes[position]
-        holder.bind(crime)
+        /* holder.apply {
+             binding.crimeTitle.text = crime.title
+             binding.crimeDate.text = crime.date.toString()
+
+         }*/
+
+        holder.bind(crime, onCrimeClicked)
     }
 
     override fun getItemCount() = crimes.size

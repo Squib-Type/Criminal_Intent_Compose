@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.safeargs)
 }
 
 android {
@@ -64,6 +65,10 @@ dependencies {
     //KSP
     ksp(libs.moshi.kotlin.codegen)
     ksp(libs.androidx.room.compiler)
+
+    // Navigation
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
 
     implementation(libs.androidx.junit.ktx)
     val fragmentVersion = "1.4.1"
