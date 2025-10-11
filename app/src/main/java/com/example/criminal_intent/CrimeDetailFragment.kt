@@ -15,6 +15,11 @@ import androidx.navigation.fragment.navArgs
 import com.example.criminal_intent.databinding.FragmentCrimeDetailBinding
 import kotlinx.coroutines.launch
 import java.util.*
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
+
 
 
 
@@ -100,6 +105,19 @@ class CrimeDetailFragment :Fragment(){
                     crime?.let { updateUi(it) }
                 }
             }
+        }
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (binding.crimeTitle.text.toString().isBlank()){
+                Toast.makeText(
+                    binding.root.context,
+                    "Missing Crime Title",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                findNavController().popBackStack()
+            }
+
         }
     }
 
