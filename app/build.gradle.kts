@@ -3,6 +3,7 @@ import org.gradle.kotlin.dsl.debugImplementation
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -51,6 +52,18 @@ dependencies {
     implementation (libs.androidx.recyclerview)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
+
+    //Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    //Rooms
+    implementation (libs.androidx.room.common)
+    implementation (libs.androidx.room.ktx)
+
+    //KSP
+    ksp(libs.moshi.kotlin.codegen)
+    ksp(libs.androidx.room.compiler)
 
     implementation(libs.androidx.junit.ktx)
     val fragmentVersion = "1.4.1"
