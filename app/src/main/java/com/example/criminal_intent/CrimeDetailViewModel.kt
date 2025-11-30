@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class CrimeDetailViewModel(crimeId:UUID) :ViewModel() {
+class CrimeDetailViewModel(crimeId: UUID) : ViewModel() {
 
     private val crimeRepository = CrimeRepository.get()
 
@@ -23,26 +23,23 @@ class CrimeDetailViewModel(crimeId:UUID) :ViewModel() {
         }
     }
 
-
     fun updateCrime(onUpdate: (Crime) -> Crime) {
         _crime.update { oldCrime ->
             oldCrime?.let { onUpdate(it) }
         }
     }
 
-    override fun onCleared(){
+    override fun onCleared() {
         super.onCleared()
-
-        //viewModelScope.launch {
-        crime.value?.let{crimeRepository.updateCrime(it)}
-
-        //  }
+        crime.value?.let { crimeRepository.updateCrime(it) }
     }
 }
+
 class CrimeDetailViewModelFactory(
     private val crimeId: UUID
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
         return CrimeDetailViewModel(crimeId) as T
     }
 }
